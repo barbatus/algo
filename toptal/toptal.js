@@ -22,6 +22,7 @@ function sum(N) {
   return sum1;
 }
 
+// Flatten a recursive array i.e. [1, [2, [4, [10, 20, [1, 2, 3, 4]]], 6], 5]
 var result = [];
 function flat(A) {
   for (var i = 0; i < A.length; i++) {

@@ -1,4 +1,4 @@
-// greatest common divider for array of numbers
+// Greatest common divider for array of numbers.
 
 function gcd(a, b) {
   while (b !== 0) {

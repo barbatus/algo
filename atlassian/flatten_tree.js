@@ -1,3 +1,5 @@
+// Given a binary tree, convert it to a linked list.
+
 function flatten1(root) {
   while (root) {
     if (root.left) {

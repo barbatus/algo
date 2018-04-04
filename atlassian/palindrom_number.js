@@ -1,3 +1,4 @@
+// Find out if a number is a palindrom one.
 
 const int = (num) => Math.floor(num);
 

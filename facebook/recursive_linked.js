@@ -1,9 +1,13 @@
+/*
+ * Flatten recursive linked list, i.e. convert
+ * 1 -> (2 -> 4 -> 5 -> 6 -> undefined) -> (10 -> (24 -> 30 -> 50 - undefined) -> 500 -> undefined) -> 20 -> undefined
+ * 1 -> 2 -> 4 -> 5 -> 6 -> 10 -> 24 -> 30 -> 50 -> 500 -> 20
+ */
+
 function Node(value, next) {
   this.value = value;
   this.next = next;
 }
-
-// 1 -> (2 -> 4 -> 5 -> 6 -> undefined) -> (10 -> (24 -> 30 -> 50 - undefined) -> 500 -> undefined) -> 20 -> undefined
 
 var n1 = new Node(20);
 var n21 = new Node(500);

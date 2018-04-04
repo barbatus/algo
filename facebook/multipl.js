@@ -1,3 +1,5 @@
+// Multiply two big numbers, i.e. given as strings
+
 function mult(a, b) {
   const res = [];
   const min = a.length < b.length ? a : b;

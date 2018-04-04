@@ -1,3 +1,5 @@
+// Find all anagrams in a given string using sliding window method.
+
 function find(s, p) {
   const map = {};
   for (let i = 0; i < p.length; i++) {

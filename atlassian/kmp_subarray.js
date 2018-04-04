@@ -1,4 +1,6 @@
-function getTable(s){
+// KMP to find a given subarray's index in a given array.
+
+function getTable(s) {
   const table = [-1];
 
   let index = 0;
