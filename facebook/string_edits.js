@@ -1,27 +1,18 @@
 // When only one edit possible.
 function solve1(a, b) {
-  if (Math.abs(a.length - b.length)) return false;
+  if (Math.abs(a.length - b.length) >= 2) return false;
 
   let count = 0;
-  if (a.length === b.length) {
-    for (let i = 0; i < a.length; i++) {
-      if (a[i] !== b[i]) {
-        count++;
-      }
-    }
-    return count === 1;
-  }
-
   const max = a.length < b.length ? b : a;
   const min = a.length < b.length ? a : b;
   for (let i = 0, j = 0; i < min.length, j < max.length, count <= 1; i++, j++) {
     if (min[i] !== max[j]) {
-      i--;
+      i += (max.length !== min.length ? -1 : 0);
       count++;
     }
   }
 
-  return count === 1;
+  return count <= 1;
 }
 
 // console.log(solve1('ccf', 'acc'));

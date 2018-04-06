@@ -21,7 +21,7 @@ function swap(arr, mid, l, r) {
   let i = l;
   let j = r - 1;
   while (true) {
-    while (arr[i] <= c) i++;
+    while (arr[i] <= c && i <= r - 1) i++;
 
     while (arr[j] > c) j--;
 
