@@ -1,3 +1,7 @@
+// https://leetcode.com/problems/wiggle-sort-ii/description/
+// Given an unsorted array nums, reorder it such that nums[0] < nums[1] > nums[2] < nums[3]....
+// O(n) solution
+
 function findMed(arr, l, r, k) {
   while (true) {
     var mid = Math.floor((l + r) / 2);
@@ -73,4 +77,3 @@ function solve(nums) {
 }
 
 console.log(solve([4, 5, 5, 6]));
-
