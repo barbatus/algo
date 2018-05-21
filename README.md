@@ -1,2 +1,2 @@
-# algo
-Algorithmic challenges from different sources
+# AlgoJS
+Algorithmic challenges from different sources programmed in JS
