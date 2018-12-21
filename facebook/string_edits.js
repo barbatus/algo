@@ -33,7 +33,7 @@ function solve2(a, b) {
   }
 
   for (let i = 1; i < n; i++) {
-    for (let j = 1; j < m; j++) {  
+    for (let j = 1; j < m; j++) {
       if (a[i] === b[j]) {
         dp[i][j] = dp[i - 1][j - 1];
         continue;

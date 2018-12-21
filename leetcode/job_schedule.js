@@ -1,6 +1,22 @@
 //https://leetcode.com/problems/task-scheduler/description/
 
+
 function solve(tasks, n) {
+  const map = {};
+
+  let index = 0;
+  let result = 0;
+  while (index < tasks.length) {
+    const last = map[tasks[index]];
+    if (!last || result - last > n) {
+      map[tasks[index]] = result;
+      index++;
+    }
+    result++;
+  }
+}
+
+function solve2(tasks, n) {
   let map = [];
   for (let i = 0; i < 26; i++) {
     map[i] = 0;

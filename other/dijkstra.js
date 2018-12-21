@@ -1,75 +1,28 @@
-
-function insertNode(queue, node) {
-  const len = queue.length;
-  if (!len) {
-    queue.push(node);
-    return queue;
-  }
-
-  let start = 0;
-  let end = len - 1;
-  if (node.path < queue[end].path) {
-    queue.push(node);
-    return queue;
-  }
-  if (node.path > queue[start].path) {
-    queue.splice(start, 0, node);
-    return queue;
-  }
- 
-  while (end - start > 1) {
-    const mid = Math.floor((end - start) / 2);
-    if (queue[start + mid].path > node.path) {
-      start = start + mid;
-    } else {
-      end = start + mid;
-    }
-  }
-  queue.splice(end, 0, node);
-  return queue;
-}
-
-function updateNode(queue, node, path) {
-  for (let i = 0; i < queue.length; i++) {
-    if (queue[i].i === node) {
-      queue[i].path = path;
-      for (let j = i + 1; j < queue.length; j++) {
-        if (path > queue[j].path) {
-          if (j === i + 1) return queue;
-          queue.splice(j, 0, queue[i]);
-          queue.splice(i, 1);
-          return queue;
-        }
-      }
-      queue.push(queue[i]);
-      queue.splice(i, 1);
-      return queue;
-    }
-  }
-}
+const Heap = require('./heap');
 
 function findPath(s, graph) {
   const n = graph.length;
   const paths = [];
   for (let i = 0; i < n; i++) {
-    paths.push(-1);
+    paths.push({ node: -1 });
   }
 
-  const queue = [{ i: s, path: 0 }];
-  paths[s] = 0;
-  while(queue.length) {
-    const node = queue.pop().i;
+  const queue = new Heap();
+  queue.insert(s, 0);
+  paths[s] = { node: 0, path: 0 };
+  while(queue.size) {
+    const node = queue.pop();
     for (const n in graph[node]) {
       const i = parseInt(n);
-      const path = paths[node] + graph[node][i];
-      if (paths[i] === -1) {
-        insertNode(queue, { i, path });
-        paths[i] = path;
+      const path = paths[node].path + graph[node][i];
+      if (paths[i].node === -1) {
+        queue.insert(i, path);
+        paths[i] = { node, path };
         continue;
-      } 
-      if (paths[i] > paths[node] + graph[node][i]) {
-        updateNode(queue, i, path);
-        paths[i] = path;
+      }
+      if (paths[i].path > path) {
+        queue.update(i, path);
+        paths[i] = { node, path };
       }
     }
   }

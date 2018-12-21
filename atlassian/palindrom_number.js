@@ -2,7 +2,7 @@
 
 const int = (num) => Math.floor(num);
 
-function find(num) {
+function find1(num) {
   let order = 1;
   let next = num;
   while (next = int(next / 10)) {
@@ -22,4 +22,17 @@ function find(num) {
   return true;
 }
 
-console.log(find(152621));
+function find2(num) {
+  if (int(num/10) === 0) return true;
+  if (num < 0 || num%10 === 0) return false;
+
+  let prev = 0;
+  while (num > prev) {
+    prev = prev*10 + num%10;
+    num = int(num/10);
+  }
+
+  return num === prev || int(prev/10) === num;
+}
+
+console.log(find2(1268621));
