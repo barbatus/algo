@@ -48,3 +48,30 @@ function solve2(a, b) {
 }
 
 console.log(solve2('ccf', 'acc'));
+
+// with O(n) space
+function solve3(a, b) {
+  const n = a.length;
+  const m = b.length;
+
+  const diff = [a[0] === b[0] ? 0 : 1];
+  for (let j = 1; j < m; j++) {
+    diff[j] = a[0] === b[j] ? j : (diff[j - 1] + 1);
+  }
+
+  for (let i = 1; i < n; i++) {
+    const prev = a[i] === b[0] ? i : (diff[0] + 1);
+    for (let j = 1; j < m; j++) {
+      if (a[i] === b[j]) {
+        curr = diff[j - 1];
+      } else {
+        curr = Math.min(Math.min(diff[j - 1], diff[j]), prev) + 1;
+      }
+      diff[j - 1] = prev;
+      prev = curr;
+    }
+    diff[m - 1] = prev;
+  }
+
+  return diff[m - 1];
+}

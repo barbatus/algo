@@ -55,12 +55,17 @@ function skyline(arr) {
   });
 
   var queue = [];
-  var skyline = [{ x: 0, y: 0 }];
+  var skyline = [];
   var count = 0;
   var prevY = 0;
-  var prevX = 0;
   while (count < arr.length) {
     next = arr[count];
+    if (!queue.length) {
+      skyline.push({ y: 0, x: next.x });
+      skyline.push(next);
+      prevY = next.y;
+    }
+
     if (next.e) {
       remove(queue, next.y);
     } else {
@@ -68,24 +73,28 @@ function skyline(arr) {
     }
 
     if (!queue.length) {
-      skyline.push({ y: next.y, x: prevX });
       skyline.push(next);
       skyline.push({ y: 0, x: next.x });
-      break;
+      continue;
     }
 
     var top = queue.peek();
     if (prevY !== top.y) {
-      skyline.push({ y: prevY, x: next.x });
+      if (next.e) {
+        skyline.push(next);
+        skyline.push({ y: prevY, x: next.x });
+      } else {
+        skyline.push({ y: prevY, x: next.x });
+        skyline.push(next);
+      }
       prevY = top.y;
-      prevX = next.x;
     }
     count++;
   }
 
   var result = [skyline[0]];
   for (let i = 1; i < skyline.length - 1; i++) {
-    if (skyline[i].x !== skyline[i + 1].x) {
+    if (skyline[i - 1].x !== skyline[i + 1].x) {
       result.push(skyline[i]);
     }
   }
