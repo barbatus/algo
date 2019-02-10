@@ -1,4 +1,4 @@
-const Heap = require('./heap');
+const Heap = require('../data_structures/heap');
 
 function findPath(s, graph) {
   const n = graph.length;
