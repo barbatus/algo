@@ -11,17 +11,17 @@ function findPath(s, graph) {
   queue.insert(s, 0);
   paths[s] = { node: 0, path: 0 };
   while(queue.size) {
-    const node = queue.pop();
+    const node = queue.pop().key;
     for (const n in graph[node]) {
       const i = parseInt(n);
       const path = paths[node].path + graph[node][i];
       if (paths[i].node === -1) {
-        queue.insert(i, path);
+        queue.insert({ key: i, val: path });
         paths[i] = { node, path };
         continue;
       }
       if (paths[i].path > path) {
-        queue.update(i, path);
+        queue.updateUp(i, path);
         paths[i] = { node, path };
       }
     }

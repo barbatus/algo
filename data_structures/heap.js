@@ -9,21 +9,18 @@ class Heap {
     return Math.max(Math.floor((c - 1) / 2), 0);
   }
 
-  left(p) {
-    return 2 * p + 1;
-  }
+  left(p) { return 2 * p + 1; }
 
-  right(p) {
-    return 2 * p + 2;
-  }
+  right(p) { return 2 * p + 2; }
 
-  insert(key, val) {
-    this.nodes[this.size++] = { key, val };
+  insert(node) {
+    const { key, val } = node;
+    this.nodes[this.size++] = node;
     this.pos[key] = this.size;
     this.moveUp(this.size - 1);
   }
 
-  update(key, val) {
+  updateUp(key, val) {
     const pos = this.pos[key];
     this.nodes[pos].val = val;
     this.moveUp(pos);
@@ -33,22 +30,18 @@ class Heap {
     let p = this.parent(c);
     while (this.nodes[p].val > this.nodes[c].val) {
       this.swap(p, c);
-      c = p;
-      p = this.parent(c);
+      c = p; p = this.parent(c);
     }
   }
 
   pop() {
     const root = this.nodes[0];
-    const size = this.size;
     const last = this.nodes[--this.size];
     this.nodes[0] = last;
     this.pos[last.key] = 0;
-    let c = 0;
-    let l = this.left(c);
-    let r = this.right(c);
-    while (l < size || r < size) {
-      if (r < size && this.nodes[l].val > this.nodes[r].val) {
+    let c = 0, l = this.left(c), r = this.right(c);
+    while (l < this.size || r < this.size) {
+      if (r < this.size && this.nodes[l].val > this.nodes[r].val) {
         l = r;
       }
 
@@ -56,12 +49,9 @@ class Heap {
         this.swap(c, l);
       }
 
-      l = this.left(c);
-      r = this.right(c);
-      c = l;
+      c = l, l = this.left(c), r = this.right(c);
     }
-
-    return root.key;
+    return root;
   }
 
   swap(c1, c2) {
@@ -78,3 +68,17 @@ class Heap {
 }
 
 module.exports = Heap;
+
+function test() {
+  const heap = new Heap();
+  const elems = [];
+  Array(100).fill().forEach((elem, index) => {
+    const rand = Math.floor(Math.random() * 1000);
+    elems.push(rand);
+    heap.insert({ key: index, val: rand });
+  });
+
+  while (heap.size) {
+    console.log(heap.pop().val);
+  }
+}
