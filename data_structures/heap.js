@@ -1,7 +1,6 @@
 class Heap {
   constructor() {
     this.nodes = [];
-    this.pos = {};
     this.size = 0;
   }
 
@@ -16,7 +15,6 @@ class Heap {
   insert(node) {
     const { key, val } = node;
     this.nodes[this.size++] = node;
-    this.pos[key] = this.size;
     this.moveUp(this.size - 1);
   }
 
@@ -38,7 +36,6 @@ class Heap {
     const root = this.nodes[0];
     const last = this.nodes[--this.size];
     this.nodes[0] = last;
-    this.pos[last.key] = 0;
     let c = 0, l = this.left(c), r = this.right(c);
     while (l < this.size || r < this.size) {
       if (r < this.size && this.nodes[l].val > this.nodes[r].val) {
@@ -58,12 +55,6 @@ class Heap {
     const node = this.nodes[c2];
     this.nodes[c2] = this.nodes[c1];
     this.nodes[c1] = node;
-
-    const node1 = this.nodes[c1];
-    const node2 = this.nodes[c2];
-    const pos = this.pos[node1.key];
-    this.pos[node2.key] = this.pos[node1.key];
-    this.pos[node1.key] = pos;
   }
 }
 
